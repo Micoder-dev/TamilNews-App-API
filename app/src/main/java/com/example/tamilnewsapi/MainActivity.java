@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
                                 String imageUrl = news.getString("image");
                                 String description = news.getString("description");
                                 String time = news.getString("published_date");
+                                String url = news.getString("url");
 
-                                mNewsList.add(new NewsItem(imageUrl, title, description, time));
+                                mNewsList.add(new NewsItem(imageUrl, title, description, time, url));
 
                             }
 

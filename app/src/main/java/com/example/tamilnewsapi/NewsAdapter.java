@@ -1,6 +1,7 @@
 package com.example.tamilnewsapi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +38,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
         NewsItem currentItem = mNewsList.get(position);
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, webView.class);
+                intent.putExtra("url", currentItem.getUrl());
+                mContext.startActivity(intent);
+            }
+        });
+
         String imageUrl = currentItem.getImageUrl();
         String title = currentItem.getTitle();
         String description = currentItem.getDescription();
@@ -57,6 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
         public ImageView newsImage;
         public TextView newsTitle,newsDescription,newsTime;
+        public CardView cardView;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +77,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             newsTitle = itemView.findViewById(R.id.text_view_title);
             newsDescription = itemView.findViewById(R.id.text_view_desc);
             newsTime = itemView.findViewById(R.id.text_view_published_date);
+            cardView = itemView.findViewById(R.id.cardview);
 
         }
     }
