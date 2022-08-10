@@ -2,14 +2,18 @@ package com.example.tamilnewsapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class webView extends AppCompatActivity {
 
     WebView mWebView;
+    ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,20 @@ public class webView extends AppCompatActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
 
-        mWebView.setWebViewClient(new WebViewClient());
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+
+        progressBar = ProgressDialog.show(webView.this, "Please wait...", "your page is loading...");
+
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+            }
+        });
         mWebView.loadUrl(url);
 
     }
