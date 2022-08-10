@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.newsTitle.setText(title);
         holder.newsDescription.setText(description);
         holder.newsTime.setText("published_date:" + time);
-        Picasso.get().load(imageUrl).fit().centerInside().into(holder.newsImage);
+        Glide.with(mContext).load(imageUrl).into(holder.newsImage);
 
     }
 
