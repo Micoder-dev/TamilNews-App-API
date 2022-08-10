@@ -44,7 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.newsTitle.setText(title);
         holder.newsDescription.setText(description);
         holder.newsTime.setText("published_date:" + time);
-        Glide.with(mContext).load(imageUrl).into(holder.newsImage);
+        Glide.with(mContext).load(imageUrl).placeholder(R.drawable.news_logo).into(holder.newsImage);
 
     }
 
