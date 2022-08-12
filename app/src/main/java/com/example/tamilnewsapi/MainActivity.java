@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.daprlabs.cardstack.SwipeDeck;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<NewsItem> mNewsList;
     private RequestQueue mRequestQueue;
 
+    private SwipeDeck cardStack;
+    private ArrayList<CardNews> courseModalArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
 
         parseJSON();
+
+        // on below line we are initializing our array list and swipe deck.
+        courseModalArrayList = new ArrayList<>();
+        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
     }
 
@@ -68,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
                                 mNewsList.add(new NewsItem(imageUrl, title, description, time, url));
 
+                                // on below line we are adding data to our array list.
+                                courseModalArrayList.add(new CardNews(title, description, time, imageUrl));
+
+                                // on below line we are creating a variable for our adapter class and passing array list to it.
+                                final CardsNewsDataAdapter adapter = new CardsNewsDataAdapter(courseModalArrayList, MainActivity.this);
+
+                                // on below line we are setting adapter to our card stack.
+                                cardStack.setAdapter(adapter);
+
                             }
 
                             mNewsAdapter = new NewsAdapter(MainActivity.this, mNewsList);
@@ -89,4 +105,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
